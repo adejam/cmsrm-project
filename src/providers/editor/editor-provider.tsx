@@ -11,6 +11,7 @@ export type EditorElement = {
   name: string
   type: EditorBtns
   content: EditorElement[] | { href?: string; innerText?: string; src?: string }
+  className?: string
 }
 
 export type Editor = {
@@ -312,28 +313,28 @@ const editorReducer = (
         },
       }
 
-    case 'SET_FUNNELPAGE_ID':
-      const { funnelPageId } = action.payload
-      const updatedEditorStateWithFunnelPageId = {
-        ...state.editor,
-        funnelPageId,
-      }
+    // case 'SET_FUNNELPAGE_ID':
+    //   const { funnelPageId } = action.payload
+    //   const updatedEditorStateWithFunnelPageId = {
+    //     ...state.editor,
+    //     funnelPageId,
+    //   }
 
-      const updatedHistoryWithFunnelPageId = [
-        ...state.history.history.slice(0, state.history.currentIndex + 1),
-        { ...updatedEditorStateWithFunnelPageId }, // Save a copy of the updated state
-      ]
+    //   const updatedHistoryWithFunnelPageId = [
+    //     ...state.history.history.slice(0, state.history.currentIndex + 1),
+    //     { ...updatedEditorStateWithFunnelPageId }, // Save a copy of the updated state
+    //   ]
 
-      const funnelPageIdState = {
-        ...state,
-        editor: updatedEditorStateWithFunnelPageId,
-        history: {
-          ...state.history,
-          history: updatedHistoryWithFunnelPageId,
-          currentIndex: updatedHistoryWithFunnelPageId.length - 1,
-        },
-      }
-      return funnelPageIdState
+    //   const funnelPageIdState = {
+    //     ...state,
+    //     editor: updatedEditorStateWithFunnelPageId,
+    //     history: {
+    //       ...state.history,
+    //       history: updatedHistoryWithFunnelPageId,
+    //       currentIndex: updatedHistoryWithFunnelPageId.length - 1,
+    //     },
+    //   }
+    //   return funnelPageIdState
 
     default:
       return state

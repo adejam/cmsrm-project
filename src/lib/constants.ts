@@ -209,6 +209,10 @@
 //   },
 // ]
 
+// export const Typography
+
+export type HeaderHeirachyType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'blockquote' | 'span'
+
 export type EditorBtns =
   | 'text'
   | 'container'
@@ -222,6 +226,7 @@ export type EditorBtns =
   | 'image'
   | null
   | '3Col'
+  | HeaderHeirachyType
 
 export const defaultStyles: React.CSSProperties = {
   backgroundPosition: 'center',

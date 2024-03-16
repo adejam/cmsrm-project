@@ -433,7 +433,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@floating-ui/react-dom@npm:^2.0.0":
+"@floating-ui/react-dom@npm:^2.0.0, @floating-ui/react-dom@npm:^2.0.8":
   version: 2.0.8
   resolution: "@floating-ui/react-dom@npm:2.0.8"
   dependencies:
@@ -442,6 +442,20 @@ __metadata:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
   checksum: e57b2a498aecf8de0ec28adf434257fca7893bd9bd7e78b63ac98c63b29b9fc086fc175630154352f3610f5c4a0d329823837f4f6c235cc0459fde6417065590
+  languageName: node
+  linkType: hard
+
+"@floating-ui/react@npm:^0.26.2":
+  version: 0.26.9
+  resolution: "@floating-ui/react@npm:0.26.9"
+  dependencies:
+    "@floating-ui/react-dom": "npm:^2.0.8"
+    "@floating-ui/utils": "npm:^0.2.1"
+    tabbable: "npm:^6.0.1"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 997f5a471ac6080c5162ad86fbb8e5bc0eca9335c40d8445597a90ba645e5d35ee796c29bdc66d868182afe5901804ecd52b82560332ae123b0c269400421e63
   languageName: node
   linkType: hard
 
@@ -674,6 +688,13 @@ __metadata:
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
   checksum: 115e8ceeec6bc69dff2048b35c0ab4f8bbee12d8bb6c1f4af758604586d802b6e669dcb02dda61d078de42c2b4ddce41b3d9e726d7daa6b4b850f4adbf7333ff
+  languageName: node
+  linkType: hard
+
+"@popperjs/core@npm:^2.9.3":
+  version: 2.11.8
+  resolution: "@popperjs/core@npm:2.11.8"
+  checksum: ddd16090cde777aaf102940f05d0274602079a95ad9805bd20bc55dcc7c3a2ba1b99dd5c73e5cc2753c3d31250ca52a67d58059459d7d27debb983a9f552936c
   languageName: node
   linkType: hard
 
@@ -2163,6 +2184,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/uuid@npm:^9":
+  version: 9.0.8
+  resolution: "@types/uuid@npm:9.0.8"
+  checksum: b8c60b7ba8250356b5088302583d1704a4e1a13558d143c549c408bf8920535602ffc12394ede77f8a8083511b023704bc66d1345792714002bfa261b17c5275
+  languageName: node
+  linkType: hard
+
 "@types/ws@npm:^8.5.10":
   version: 8.5.10
   resolution: "@types/ws@npm:8.5.10"
@@ -2886,6 +2914,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"classnames@npm:^2.5.1":
+  version: 2.5.1
+  resolution: "classnames@npm:2.5.1"
+  checksum: 58eb394e8817021b153bb6e7d782cfb667e4ab390cb2e9dac2fc7c6b979d1cc2b2a733093955fc5c94aa79ef5c8c89f11ab77780894509be6afbb91dddd79d15
+  languageName: node
+  linkType: hard
+
 "clean-stack@npm:^2.0.0":
   version: 2.2.0
   resolution: "clean-stack@npm:2.2.0"
@@ -3074,6 +3109,13 @@ __metadata:
   version: 3.3.1
   resolution: "date-fns@npm:3.3.1"
   checksum: 98231936765dfb6fc6897676319b500a06a39f051b2c3ecbdd541a07ce9b1344b770277b8bfb1049fb7a2f70bf365ac8e6f1e2bb452b10e1a8101d518ca7f95d
+  languageName: node
+  linkType: hard
+
+"debounce@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "debounce@npm:2.0.0"
+  checksum: 79d143e0b3c3d15f8ecaf5dd68ad087ed58b0eaf507ee005f9d5b503cafd03acccd69f5341788cca9c82574662da066b0efb1ed5c64282b2cca64fab65af4acf
   languageName: node
   linkType: hard
 
@@ -4151,6 +4193,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"flowbite-react@npm:^0.7.3":
+  version: 0.7.3
+  resolution: "flowbite-react@npm:0.7.3"
+  dependencies:
+    "@floating-ui/react": "npm:^0.26.2"
+    classnames: "npm:^2.5.1"
+    debounce: "npm:^2.0.0"
+    flowbite: "npm:^2.0.0"
+    react-icons: "npm:^4.11.0"
+    tailwind-merge: "npm:^2.0.0"
+  peerDependencies:
+    react: ^18
+    react-dom: ^18
+    tailwindcss: ^3
+  checksum: 5dc526f5e498f34b4a78e06531cd6273de145a80c862d19606eb2ab1866bd0f494412c3eac084411ceb8a8d7e2130bcefc43bbd6e548f5c36959f6df2c7a3082
+  languageName: node
+  linkType: hard
+
+"flowbite@npm:^2.0.0, flowbite@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "flowbite@npm:2.3.0"
+  dependencies:
+    "@popperjs/core": "npm:^2.9.3"
+    mini-svg-data-uri: "npm:^1.4.3"
+  checksum: a72bc4c68fd6cc832e2df2fbf329eca5d96d8297da6f0578addca68fccc8e33fcc12c00403b2b8cf550a345e46831d86a35e69b2fd4e79b7087f01b7712310a3
+  languageName: node
+  linkType: hard
+
 "for-each@npm:^0.3.3":
   version: 0.3.3
   resolution: "for-each@npm:0.3.3"
@@ -4423,6 +4493,7 @@ __metadata:
     "@types/node": "npm:^20.11.20"
     "@types/react": "npm:^18.2.57"
     "@types/react-dom": "npm:^18.2.19"
+    "@types/uuid": "npm:^9"
     "@typescript-eslint/eslint-plugin": "npm:^7.0.2"
     "@typescript-eslint/parser": "npm:^7.0.2"
     autoprefixer: "npm:^10.4.18"
@@ -4436,6 +4507,8 @@ __metadata:
     embla-carousel-react: "npm:^8.0.0"
     eslint: "npm:^8.56.0"
     eslint-config-next: "npm:^14.1.0"
+    flowbite: "npm:^2.3.0"
+    flowbite-react: "npm:^0.7.3"
     input-otp: "npm:^1.0.1"
     lucide-react: "npm:^0.354.0"
     nanoid: "npm:^5.0.6"
@@ -4458,6 +4531,7 @@ __metadata:
     tailwindcss: "npm:^3.4.1"
     tailwindcss-animate: "npm:^1.0.7"
     typescript: "npm:^5.3.3"
+    uuid: "npm:^9.0.1"
     vaul: "npm:^0.9.0"
     zod: "npm:^3.22.4"
   languageName: unknown
@@ -5252,6 +5326,15 @@ __metadata:
     braces: "npm:^3.0.2"
     picomatch: "npm:^2.3.1"
   checksum: a749888789fc15cac0e03273844dbd749f9f8e8d64e70c564bcf06a033129554c789bb9e30d7566d7ff6596611a08e58ac12cf2a05f6e3c9c47c50c4c7e12fa2
+  languageName: node
+  linkType: hard
+
+"mini-svg-data-uri@npm:^1.4.3":
+  version: 1.4.4
+  resolution: "mini-svg-data-uri@npm:1.4.4"
+  bin:
+    mini-svg-data-uri: cli.js
+  checksum: 1336c2b00b6a72b0ce3cf942f7ab074faf463b941042fbe51d7a70be119c5d4223880aaa29584d5a804496ca1dda9b6fff7dd5aa284721907519b646192d8aaa
   languageName: node
   linkType: hard
 
@@ -6177,6 +6260,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-icons@npm:^4.11.0":
+  version: 4.12.0
+  resolution: "react-icons@npm:4.12.0"
+  peerDependencies:
+    react: "*"
+  checksum: 5cc20509ca0b182f1e7bf42c271846c48f688c8922e2439f48728805adc93ba18476a13588cbe91ee43a2d03b2787e0dc0b5cc4b9c4e4ae3426f4464b3c1b734
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -6803,7 +6895,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-merge@npm:^2.2.1":
+"tabbable@npm:^6.0.1":
+  version: 6.2.0
+  resolution: "tabbable@npm:6.2.0"
+  checksum: 980fa73476026e99dcacfc0d6e000d41d42c8e670faf4682496d30c625495e412c4369694f2a15cf1e5252d22de3c396f2b62edbe8d60b5dadc40d09e3f2dde3
+  languageName: node
+  linkType: hard
+
+"tailwind-merge@npm:^2.0.0, tailwind-merge@npm:^2.2.1":
   version: 2.2.1
   resolution: "tailwind-merge@npm:2.2.1"
   dependencies:
@@ -7160,6 +7259,15 @@ __metadata:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 474acf1146cb2701fe3b074892217553dfcf9a031280919ba1b8d651a068c9b15d863b7303cb15bd00a862b498e6cf4ad7b4a08fb134edd5a6f7641681cb54a2
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "uuid@npm:9.0.1"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 9d0b6adb72b736e36f2b1b53da0d559125ba3e39d913b6072f6f033e0c87835b414f0836b45bcfaf2bdf698f92297fea1c3cc19b0b258bc182c9c43cc0fab9f2
   languageName: node
   linkType: hard
 

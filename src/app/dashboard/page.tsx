@@ -1,12 +1,10 @@
-import EditorProvider from '@/providers/editor/editor-provider'
 import React from 'react'
+import { FloatingLabel } from 'flowbite-react'
 
 const page = () => {
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 z-[20] bg-background overflow-hidden">
-      <EditorProvider>
-        page
-      </EditorProvider>
+    <div className=''>
+      <FloatingLabel color='success' className='border w-auto' variant="filled" label="Label" />
     </div>
   )
 }
