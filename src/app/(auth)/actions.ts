@@ -1,9 +1,9 @@
-'use server'
+"use server"
 
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
-import { createAnonServerClient } from '@/lib/supabase/supabase-anon-server-client';
-import { loginSchema, signupSchema } from '@/validation-schemas/auth.schema';
+import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
+import { createAnonServerClient } from "@/lib/supabase/supabase-anon-server-client"
+import { loginSchema, signupSchema } from "@/validation-schemas/auth.schema"
 
 type FormState = {
   message: string
@@ -11,7 +11,10 @@ type FormState = {
   success?: boolean
 }
 
-export async function loginAction(prevState: FormState, formData: FormData): Promise<FormState> {
+export async function loginAction(
+  prevState: FormState,
+  formData: FormData
+): Promise<FormState> {
   const supabase = createAnonServerClient()
 
   // type-casting here for convenience
@@ -22,23 +25,26 @@ export async function loginAction(prevState: FormState, formData: FormData): Pro
 
   if (!validatedData.success) {
     const parsedData = loginSchema.parse(data)
-    return {success: false, fields: parsedData, message: 'Invalid form data'}
+    return { success: false, fields: parsedData, message: "Invalid form data" }
   }
 
   const fields = validatedData.data
-  
-  const {redirectFrom, ...payload} = validatedData.data
+
+  const { redirectFrom, ...payload } = validatedData.data
   const { error } = await supabase.auth.signInWithPassword(validatedData.data)
 
   if (error) {
-    return {success: false, fields, message: error.message}
+    return { success: false, fields, message: error.message }
   }
 
-  revalidatePath('/dashboard', 'layout')
-  redirect(redirectFrom || '/dashboard')
+  revalidatePath("/dashboard", "layout")
+  redirect(redirectFrom || "/dashboard")
 }
 
-export async function signupAction(prevState: FormState, formData: FormData): Promise<FormState> {
+export async function signupAction(
+  prevState: FormState,
+  formData: FormData
+): Promise<FormState> {
   const supabase = createAnonServerClient()
 
   // type-casting here for convenience
@@ -49,22 +55,22 @@ export async function signupAction(prevState: FormState, formData: FormData): Pr
 
   if (!validatedData.success) {
     const parsedData = signupSchema.parse(data)
-    return {success: false, fields: parsedData, message: 'Invalid form data'}
+    return { success: false, fields: parsedData, message: "Invalid form data" }
   }
 
   const fields = validatedData.data
 
-  const {redirectFrom, password_confirmation,  ...payload} = validatedData.data
+  const { redirectFrom, password_confirmation, ...payload } = validatedData.data
 
   const { error, data: signInData } = await supabase.auth.signUp({
     ...payload,
     options: {
-      emailRedirectTo: `${process.env.ROOT_DOMAIN}/api/v1/auth/callback?next=${redirectFrom || '/dashboard'}`,
+      emailRedirectTo: `${process.env.ROOT_DOMAIN}/api/v1/auth/callback?next=${redirectFrom || "/dashboard"}`,
     },
   })
 
   if (error) {
-    return {success: false, fields, message: error.message}
+    return { success: false, fields, message: error.message }
   }
 
   console.log(signInData)
@@ -89,7 +95,7 @@ export async function signupAction(prevState: FormState, formData: FormData): Pr
   //   }
   // }
 
-  revalidatePath('/dashboard', 'layout')
-  return {success: true, fields, message: "Check your email for confirmation"}
+  revalidatePath("/dashboard", "layout")
+  return { success: true, fields, message: "Check your email for confirmation" }
   // redirect('/dashboard')
 }

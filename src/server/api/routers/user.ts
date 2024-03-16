@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from "zod"
 
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "@/server/api/trpc"
 
 export const userRouter = createTRPCRouter({
   hello: publicProcedure
@@ -8,6 +8,6 @@ export const userRouter = createTRPCRouter({
     .query(({ input }) => {
       return {
         greeting: `Hello ${input.text}`,
-      };
+      }
     }),
-});
+})

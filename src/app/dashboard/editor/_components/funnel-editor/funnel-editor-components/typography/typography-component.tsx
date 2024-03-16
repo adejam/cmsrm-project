@@ -1,15 +1,10 @@
-'use client'
-import PolymorphicComponent from '@/components/global/polymorphic-component'
-import { Badge } from '@/components/ui/badge'
-import { EditorBtns } from '@/lib/constants'
-import { cn } from '@/lib/utils'
+"use client"
+import PolymorphicComponent from "@/components/global/polymorphic-component"
+import { cn } from "@/lib/utils"
 
-import { EditorElement, useEditor } from '@/providers/editor/editor-provider'
-import clsx from 'clsx'
-import { Trash } from 'lucide-react'
-import Link from 'next/link'
-
-import React, { useRef } from 'react'
+import { EditorElement, useEditor } from "@/providers/editor/editor-provider"
+import { Trash } from "lucide-react"
+import React from "react"
 
 type Props = {
   element: EditorElement
@@ -18,15 +13,10 @@ type Props = {
 const TypographyComponent = (props: Props) => {
   const { dispatch, state } = useEditor()
 
-  // const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
-  //   if (type === null) return
-  //   e.dataTransfer.setData('componentType', type)
-  // }
-
-  const handleOnClickBody = (e: React.MouseEvent) => {
+  function handleOnClickBody(e: React.MouseEvent) {
     e.stopPropagation()
     dispatch({
-      type: 'CHANGE_CLICKED_ELEMENT',
+      type: "CHANGE_CLICKED_ELEMENT",
       payload: {
         elementDetails: props.element,
       },
@@ -37,96 +27,90 @@ const TypographyComponent = (props: Props) => {
 
   const handleDeleteElement = () => {
     dispatch({
-      type: 'DELETE_ELEMENT',
+      type: "DELETE_ELEMENT",
       payload: { elementDetails: props.element },
     })
   }
 
-  let defaultClasses = ''
+  let defaultClasses = ""
 
   switch (props.element.type) {
-    case 'h1':
-      defaultClasses = 'text-5xl font-extrabold dark:text-white'
-      break;
-    case 'h2':
-      defaultClasses = 'text-4xl font-bold dark:text-white'
-      break;
+    case "h1":
+      defaultClasses = "text-5xl font-extrabold dark:text-white"
+      break
+    case "h2":
+      defaultClasses = "text-4xl font-bold dark:text-white"
+      break
 
-      case 'h3':
-        defaultClasses = 'text-3xl font-bold dark:text-white'
-        break;
-        case 'h4':
-      defaultClasses = 'text-2xl font-bold dark:text-white'
-      break;
-      case 'h5':
-      defaultClasses = 'text-xl font-bold dark:text-white'
-      break;
-      case 'h6':
-      defaultClasses = 'text-lg font-bold dark:text-white'
-      break;
-      case 'p':
-      defaultClasses = 'text-gray-500 dark:text-gray-400'
-      break;
+    case "h3":
+      defaultClasses = "text-3xl font-bold dark:text-white"
+      break
+    case "h4":
+      defaultClasses = "text-2xl font-bold dark:text-white"
+      break
+    case "h5":
+      defaultClasses = "text-xl font-bold dark:text-white"
+      break
+    case "h6":
+      defaultClasses = "text-lg font-bold dark:text-white"
+      break
+    case "p":
+      defaultClasses = "text-gray-500 dark:text-gray-400"
+      break
     default:
-      defaultClasses = ''
-      break;
+      defaultClasses = ""
+      break
   }
 
   return (
-    <div
-      style={styles}
-      draggable
+    <PolymorphicComponent
       onClick={handleOnClickBody}
-      className={clsx(
-        'p-[2px] w-full m-[5px] relative text-[16px] transition-all',
-        {
-          '!border-blue-500':
-            state.editor.selectedElement.id === props.element.id,
+      style={styles}
+      id={props.element.id || ""}
+      as={props.element.type}
+      className={cn(defaultClasses, props.element.className || "relative", {
+        "!border-blue-500":
+          state.editor.selectedElement.id === props.element.id,
 
-          '!border-solid': state.editor.selectedElement.id === props.element.id,
-          'border-dashed border-[1px] border-slate-300': !state.editor.liveMode,
-        }
-      )}
+        "!border-solid": state.editor.selectedElement.id === props.element.id,
+        "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
+      })}
+      contentEditable={!state.editor.liveMode}
+      onBlur={(e: any) => {
+        const spanElement = e.target as HTMLSpanElement
+        dispatch({
+          type: "UPDATE_ELEMENT",
+          payload: {
+            elementDetails: {
+              ...props.element,
+              content: {
+                innerText: spanElement.innerText,
+              },
+            },
+          },
+        })
+      }}
     >
-      {state.editor.selectedElement.id === props.element.id &&
+      {/* {state.editor.selectedElement.id === props.element.id &&
         !state.editor.liveMode && (
-          <Badge className="absolute -top-[23px] -left-[1px] rounded-none rounded-t-lg ">
+          <Badge className="absolute -top-[23px] -left-[1px] rounded-none rounded-t-lg z-10" contentEditable={false} style={{ pointerEvents: 'none' }}>
             {state.editor.selectedElement.name}
           </Badge>
-        )}
-        <PolymorphicComponent
-          as={props.element.type}
-          className={cn(defaultClasses, props.element.className || '')}
-          contentEditable={!state.editor.liveMode}
-          onBlur={(e: any) => {
-            const spanElement = e.target as HTMLSpanElement
-            dispatch({
-              type: 'UPDATE_ELEMENT',
-              payload: {
-                elementDetails: {
-                  ...props.element,
-                  content: {
-                    innerText: spanElement.innerText,
-                  },
-                },
-              },
-            })
-          }}
-        >
-          {!Array.isArray(props.element.content) &&
-            props.element.content.innerText}
-        </PolymorphicComponent>
-      {state.editor.selectedElement.id === props.element.id &&
-        !state.editor.liveMode && (
-          <div className="absolute bg-primary px-2.5 py-1 text-xs font-bold  -top-[25px] -right-[1px] rounded-none rounded-t-lg !text-white">
-            <Trash
-              className="cursor-pointer"
-              size={16}
-              onClick={handleDeleteElement}
-            />
-          </div>
-        )}
-    </div>
+        )} */}
+      {!Array.isArray(props.element.content) && props.element.content.innerText}
+      <>
+        {state.editor.selectedElement.id === props.element.id &&
+          !state.editor.liveMode && (
+            <div className="absolute bg-primary px-2.5 py-1 text-xs font-bold  -top-[25px] -right-[1px] rounded-none rounded-t-lg !text-white">
+              <Trash
+                className="cursor-pointer"
+                size={16}
+                onClick={handleDeleteElement}
+              />
+            </div>
+          )}
+      </>
+    </PolymorphicComponent>
   )
 }
 

@@ -1,9 +1,9 @@
-'use client'
-import { EditorBtns } from '@/lib/constants'
-import { EditorAction } from './editor-actions'
-import { Dispatch, createContext, useContext, useReducer } from 'react'
+"use client"
+import { EditorBtns } from "@/lib/constants"
+import { EditorAction } from "./editor-actions"
+import { Dispatch, createContext, useContext, useReducer } from "react"
 
-export type DeviceTypes = 'Desktop' | 'Mobile' | 'Tablet'
+export type DeviceTypes = "Desktop" | "Mobile" | "Tablet"
 
 export type EditorElement = {
   id: string
@@ -32,24 +32,24 @@ export type EditorState = {
   history: HistoryState
 }
 
-const initialEditorState: EditorState['editor'] = {
+const initialEditorState: EditorState["editor"] = {
   elements: [
     {
       content: [],
-      id: '__body',
-      name: 'Body',
+      id: "__body",
+      name: "Body",
       styles: {},
-      type: '__body',
+      type: "__body",
     },
   ],
   selectedElement: {
-    id: '',
+    id: "",
     content: [],
-    name: '',
+    name: "",
     styles: {},
     type: null,
   },
-  device: 'Desktop',
+  device: "Desktop",
   previewMode: false,
   liveMode: false,
 }
@@ -68,9 +68,9 @@ const addAnElement = (
   editorArray: EditorElement[],
   action: EditorAction
 ): EditorElement[] => {
-  if (action.type !== 'ADD_ELEMENT')
+  if (action.type !== "ADD_ELEMENT")
     throw Error(
-      'You sent the wrong action type to the Add Element editor State'
+      "You sent the wrong action type to the Add Element editor State"
     )
   return editorArray.map((item) => {
     if (item.id === action.payload.containerId && Array.isArray(item.content)) {
@@ -92,8 +92,8 @@ const updateAnElement = (
   editorArray: EditorElement[],
   action: EditorAction
 ): EditorElement[] => {
-  if (action.type !== 'UPDATE_ELEMENT') {
-    throw Error('You sent the wrong action type to the update Element State')
+  if (action.type !== "UPDATE_ELEMENT") {
+    throw Error("You sent the wrong action type to the update Element State")
   }
   return editorArray.map((item) => {
     if (item.id === action.payload.elementDetails.id) {
@@ -112,9 +112,9 @@ const deleteAnElement = (
   editorArray: EditorElement[],
   action: EditorAction
 ): EditorElement[] => {
-  if (action.type !== 'DELETE_ELEMENT')
+  if (action.type !== "DELETE_ELEMENT")
     throw Error(
-      'You sent the wrong action type to the Delete Element editor State'
+      "You sent the wrong action type to the Delete Element editor State"
     )
   return editorArray.filter((item) => {
     if (item.id === action.payload.elementDetails.id) {
@@ -131,7 +131,7 @@ const editorReducer = (
   action: EditorAction
 ): EditorState => {
   switch (action.type) {
-    case 'ADD_ELEMENT':
+    case "ADD_ELEMENT":
       const updatedEditorState = {
         ...state.editor,
         elements: addAnElement(state.editor.elements, action),
@@ -154,7 +154,7 @@ const editorReducer = (
 
       return newEditorState
 
-    case 'UPDATE_ELEMENT':
+    case "UPDATE_ELEMENT":
       // Perform your logic to update the element in the state
       const updatedElements = updateAnElement(state.editor.elements, action)
 
@@ -167,9 +167,9 @@ const editorReducer = (
         selectedElement: UpdatedElementIsSelected
           ? action.payload.elementDetails
           : {
-              id: '',
+              id: "",
               content: [],
-              name: '',
+              name: "",
               styles: {},
               type: null,
             },
@@ -190,7 +190,7 @@ const editorReducer = (
       }
       return updatedEditor
 
-    case 'DELETE_ELEMENT':
+    case "DELETE_ELEMENT":
       // Perform your logic to delete the element from the state
       const updatedElementsAfterDelete = deleteAnElement(
         state.editor.elements,
@@ -216,15 +216,15 @@ const editorReducer = (
       }
       return deletedState
 
-    case 'CHANGE_CLICKED_ELEMENT':
+    case "CHANGE_CLICKED_ELEMENT":
       const clickedState = {
         ...state,
         editor: {
           ...state.editor,
           selectedElement: action.payload.elementDetails || {
-            id: '',
+            id: "",
             content: [],
-            name: '',
+            name: "",
             styles: {},
             type: null,
           },
@@ -239,7 +239,7 @@ const editorReducer = (
         },
       }
       return clickedState
-    case 'CHANGE_DEVICE':
+    case "CHANGE_DEVICE":
       const changedDeviceState = {
         ...state,
         editor: {
@@ -249,7 +249,7 @@ const editorReducer = (
       }
       return changedDeviceState
 
-    case 'TOGGLE_PREVIEW_MODE':
+    case "TOGGLE_PREVIEW_MODE":
       const toggleState = {
         ...state,
         editor: {
@@ -259,7 +259,7 @@ const editorReducer = (
       }
       return toggleState
 
-    case 'TOGGLE_LIVE_MODE':
+    case "TOGGLE_LIVE_MODE":
       const toggleLiveMode: EditorState = {
         ...state,
         editor: {
@@ -271,7 +271,7 @@ const editorReducer = (
       }
       return toggleLiveMode
 
-    case 'REDO':
+    case "REDO":
       if (state.history.currentIndex < state.history.history.length - 1) {
         const nextIndex = state.history.currentIndex + 1
         const nextEditorState = { ...state.history.history[nextIndex] }
@@ -283,11 +283,11 @@ const editorReducer = (
             currentIndex: nextIndex,
           },
         }
-        return {...redoState} as EditorState
+        return { ...redoState } as EditorState
       }
       return state
 
-    case 'UNDO':
+    case "UNDO":
       if (state.history.currentIndex > 0) {
         const prevIndex = state.history.currentIndex - 1
         const prevEditorState = { ...state.history.history[prevIndex] }
@@ -299,11 +299,11 @@ const editorReducer = (
             currentIndex: prevIndex,
           },
         }
-        return undoState  as EditorState
+        return undoState as EditorState
       }
       return state
 
-    case 'LOAD_DATA':
+    case "LOAD_DATA":
       return {
         ...initialState,
         editor: {
@@ -367,7 +367,7 @@ const EditorProvider = (props: EditorProps) => {
     <EditorContext.Provider
       value={{
         state,
-        dispatch
+        dispatch,
       }}
     >
       {props.children}
@@ -378,7 +378,7 @@ const EditorProvider = (props: EditorProps) => {
 export const useEditor = () => {
   const context = useContext(EditorContext)
   if (!context) {
-    throw new Error('useEditor Hook must be used within the editor Provider')
+    throw new Error("useEditor Hook must be used within the editor Provider")
   }
   return context
 }

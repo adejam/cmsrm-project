@@ -6,10 +6,10 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { initTRPC, TRPCError } from "@trpc/server";
-import superjson from "superjson";
-import { ZodError } from "zod";
-import { Session } from "@supabase/supabase-js";
+import { initTRPC, TRPCError } from "@trpc/server"
+import superjson from "superjson"
+import { ZodError } from "zod"
+import { Session } from "@supabase/supabase-js"
 
 /**
  * 1. CONTEXT
@@ -23,7 +23,7 @@ import { Session } from "@supabase/supabase-js";
  *
  * @see https://trpc.io/docs/server/context
  */
- interface CreateContextOptions {
+interface CreateContextOptions {
   session: Session | null
 }
 
@@ -47,7 +47,7 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
- export const createTRPCContext = async (opts: {
+export const createTRPCContext = async (opts: {
   req?: Request
   headers?: Headers
   auth?: Session | null
@@ -76,9 +76,9 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
         zodError:
           error.cause instanceof ZodError ? error.cause.flatten() : null,
       },
-    };
+    }
   },
-});
+})
 
 /**
  * 3. ROUTER & PROCEDURE (THE IMPORTANT BIT)
@@ -92,7 +92,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
  *
  * @see https://trpc.io/docs/router
  */
-export const createTRPCRouter = t.router;
+export const createTRPCRouter = t.router
 
 /**
  * Public (unauthenticated) procedure
@@ -101,18 +101,18 @@ export const createTRPCRouter = t.router;
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
  */
-export const publicProcedure = t.procedure;
+export const publicProcedure = t.procedure
 
 /**
  * Reusable middleware that enforces users are logged in before running the
  * procedure
  */
- const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
+const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   if (!ctx.session?.user) {
-    console.debug('User not authenticated')
+    console.debug("User not authenticated")
     throw new TRPCError({
-      code: 'UNAUTHORIZED',
-      message: 'You have to be logged use this resource',
+      code: "UNAUTHORIZED",
+      message: "You have to be logged use this resource",
     })
   }
   return next({

@@ -1,9 +1,7 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
-import {
-  pgTableCreator,
-} from "drizzle-orm/pg-core";
+import { pgTableCreator } from "drizzle-orm/pg-core"
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -11,4 +9,6 @@ import {
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createGodFatherAiTable = pgTableCreator((name) => `godfather-ai_${name}`);
+export const createGodFatherAiTable = pgTableCreator(
+  (name) => `godfather-ai_${name}`
+)

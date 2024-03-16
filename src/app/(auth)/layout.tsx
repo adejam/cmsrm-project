@@ -1,7 +1,7 @@
-import { createAnonServerClient } from '@/lib/supabase/supabase-anon-server-client'
-import { redirect } from 'next/navigation'
+import { createAnonServerClient } from "@/lib/supabase/supabase-anon-server-client"
+import { redirect } from "next/navigation"
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic"
 
 export default async function Layout({
   children,
@@ -15,10 +15,8 @@ export default async function Layout({
   } = await supabase.auth.getSession()
 
   if (session) {
-    redirect('/dashboard')
+    redirect("/dashboard")
   }
 
-  return (
-    <div>{children}</div>
-  )
+  return <div>{children}</div>
 }

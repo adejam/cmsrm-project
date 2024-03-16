@@ -1,4 +1,4 @@
-import { EditorBtns, HeaderHeirachyType } from '@/lib/constants'
+import { EditorBtns, HeaderHeirachyType } from "@/lib/constants"
 import {
   Bold,
   Heading1Icon,
@@ -8,17 +8,16 @@ import {
   Heading5Icon,
   Heading6Icon,
   TypeIcon,
-} from 'lucide-react'
-import React from 'react'
-
+} from "lucide-react"
+import React from "react"
 
 type Props = { headerHeirachy: HeaderHeirachyType }
 
-const HeaderPlaceholder = ({headerHeirachy}: Props) => {
+const HeaderPlaceholder = ({ headerHeirachy }: Props) => {
   const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
     if (type === null) return
     // console.log(type)
-    e.dataTransfer.setData('componentType', type)
+    e.dataTransfer.setData("componentType", type)
   }
 
   // console.log(headerHeirachy)
@@ -26,31 +25,31 @@ const HeaderPlaceholder = ({headerHeirachy}: Props) => {
   let Icon = Heading1Icon
 
   switch (headerHeirachy) {
-    case 'h2':
+    case "h2":
       Icon = Heading2Icon
-      break;
+      break
 
-      case 'h3':
-        Icon = Heading3Icon
-        break;
-        case 'h4':
+    case "h3":
+      Icon = Heading3Icon
+      break
+    case "h4":
       Icon = Heading4Icon
-      break;
-      case 'h5':
+      break
+    case "h5":
       Icon = Heading5Icon
-      break;
-      case 'h6':
+      break
+    case "h6":
       Icon = Heading6Icon
-      break;
-      case 'p':
+      break
+    case "p":
       Icon = TypeIcon
-      break;
-      case 'blockquote':
+      break
+    case "blockquote":
       Icon = Bold
-      break;
-  
+      break
+
     default:
-      break;
+      break
   }
 
   return (
@@ -59,10 +58,7 @@ const HeaderPlaceholder = ({headerHeirachy}: Props) => {
       onDragStart={(e) => handleDragStart(e, headerHeirachy)}
       className=" h-14 w-14 bg-muted rounded-lg flex items-center justify-center"
     >
-      <Icon
-        size={40}
-        className="text-muted-foreground"
-      />
+      <Icon size={40} className="text-muted-foreground" />
     </div>
   )
 }

@@ -1,13 +1,13 @@
-'use client'
-import React, { ChangeEventHandler } from 'react'
+"use client"
+import React, { ChangeEventHandler } from "react"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+} from "@/components/ui/accordion"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
   AlignCenter,
   AlignHorizontalJustifyCenterIcon,
@@ -22,8 +22,8 @@ import {
   AlignVerticalJustifyStart,
   ChevronsLeftRightIcon,
   LucideImageDown,
-} from 'lucide-react'
-import { Tabs, TabsTrigger, TabsList } from '@/components/ui/tabs'
+} from "lucide-react"
+import { Tabs, TabsTrigger, TabsList } from "@/components/ui/tabs"
 import {
   Select,
   SelectContent,
@@ -32,9 +32,9 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { useEditor } from '@/providers/editor/editor-provider'
-import { Slider } from '@/components/ui/slider'
+} from "@/components/ui/select"
+import { useEditor } from "@/providers/editor/editor-provider"
+import { Slider } from "@/components/ui/slider"
 
 type Props = {}
 
@@ -49,7 +49,7 @@ const SettingsTab = (props: Props) => {
     }
 
     dispatch({
-      type: 'UPDATE_ELEMENT',
+      type: "UPDATE_ELEMENT",
       payload: {
         elementDetails: {
           ...state.editor.selectedElement,
@@ -70,7 +70,7 @@ const SettingsTab = (props: Props) => {
     }
 
     dispatch({
-      type: 'UPDATE_ELEMENT',
+      type: "UPDATE_ELEMENT",
       payload: {
         elementDetails: {
           ...state.editor.selectedElement,
@@ -87,15 +87,12 @@ const SettingsTab = (props: Props) => {
     <Accordion
       type="multiple"
       className="w-full"
-      defaultValue={['Typography', 'Dimensions', 'Decorations', 'Flexbox']}
+      defaultValue={["Typography", "Dimensions", "Decorations", "Flexbox"]}
     >
-      <AccordionItem
-        value="Custom"
-        className="px-6 py-0  "
-      >
+      <AccordionItem value="Custom" className="px-6 py-0  ">
         <AccordionTrigger className="!no-underline">Custom</AccordionTrigger>
         <AccordionContent>
-          {state.editor.selectedElement.type === 'link' &&
+          {state.editor.selectedElement.type === "link" &&
             !Array.isArray(state.editor.selectedElement.content) && (
               <div className="flex flex-col gap-2">
                 <p className="text-muted-foreground">Link Path</p>
@@ -109,10 +106,7 @@ const SettingsTab = (props: Props) => {
             )}
         </AccordionContent>
       </AccordionItem>
-      <AccordionItem
-        value="Typography"
-        className="px-6 py-0  border-y-[1px]"
-      >
+      <AccordionItem value="Typography" className="px-6 py-0  border-y-[1px]">
         <AccordionTrigger className="!no-underline">
           Typography
         </AccordionTrigger>
@@ -123,7 +117,7 @@ const SettingsTab = (props: Props) => {
               onValueChange={(e) =>
                 handleOnChanges({
                   target: {
-                    id: 'textAlign',
+                    id: "textAlign",
                     value: e,
                   },
                 })
@@ -181,7 +175,7 @@ const SettingsTab = (props: Props) => {
                 onValueChange={(e) =>
                   handleOnChanges({
                     target: {
-                      id: 'font-weight',
+                      id: "font-weight",
                       value: e,
                     },
                   })
@@ -212,10 +206,7 @@ const SettingsTab = (props: Props) => {
           </div>
         </AccordionContent>
       </AccordionItem>
-      <AccordionItem
-        value="Dimensions"
-        className=" px-6 py-0 "
-      >
+      <AccordionItem value="Dimensions" className=" px-6 py-0 ">
         <AccordionTrigger className="!no-underline">
           Dimensions
         </AccordionTrigger>
@@ -336,10 +327,7 @@ const SettingsTab = (props: Props) => {
           </div>
         </AccordionContent>
       </AccordionItem>
-      <AccordionItem
-        value="Decorations"
-        className="px-6 py-0 "
-      >
+      <AccordionItem value="Decorations" className="px-6 py-0 ">
         <AccordionTrigger className="!no-underline">
           Decorations
         </AccordionTrigger>
@@ -349,12 +337,12 @@ const SettingsTab = (props: Props) => {
             <div className="flex items-center justify-end">
               <small className="p-2">
                 {typeof state.editor.selectedElement.styles?.opacity ===
-                'number'
+                "number"
                   ? state.editor.selectedElement.styles?.opacity
                   : parseFloat(
                       (
-                        state.editor.selectedElement.styles?.opacity || '0'
-                      ).replace('%', '')
+                        state.editor.selectedElement.styles?.opacity || "0"
+                      ).replace("%", "")
                     ) || 0}
                 %
               </small>
@@ -363,18 +351,18 @@ const SettingsTab = (props: Props) => {
               onValueChange={(e) => {
                 handleOnChanges({
                   target: {
-                    id: 'opacity',
+                    id: "opacity",
                     value: `${e[0]}%`,
                   },
                 })
               }}
               defaultValue={[
-                typeof state.editor.selectedElement.styles?.opacity === 'number'
+                typeof state.editor.selectedElement.styles?.opacity === "number"
                   ? state.editor.selectedElement.styles?.opacity
                   : parseFloat(
                       (
-                        state.editor.selectedElement.styles?.opacity || '0'
-                      ).replace('%', '')
+                        state.editor.selectedElement.styles?.opacity || "0"
+                      ).replace("%", "")
                     ) || 0,
               ]}
               max={100}
@@ -386,12 +374,12 @@ const SettingsTab = (props: Props) => {
             <div className="flex items-center justify-end">
               <small className="">
                 {typeof state.editor.selectedElement.styles?.borderRadius ===
-                'number'
+                "number"
                   ? state.editor.selectedElement.styles?.borderRadius
                   : parseFloat(
                       (
-                        state.editor.selectedElement.styles?.borderRadius || '0'
-                      ).replace('px', '')
+                        state.editor.selectedElement.styles?.borderRadius || "0"
+                      ).replace("px", "")
                     ) || 0}
                 px
               </small>
@@ -400,19 +388,19 @@ const SettingsTab = (props: Props) => {
               onValueChange={(e) => {
                 handleOnChanges({
                   target: {
-                    id: 'borderRadius',
+                    id: "borderRadius",
                     value: `${e[0]}px`,
                   },
                 })
               }}
               defaultValue={[
                 typeof state.editor.selectedElement.styles?.borderRadius ===
-                'number'
+                "number"
                   ? state.editor.selectedElement.styles?.borderRadius
                   : parseFloat(
                       (
-                        state.editor.selectedElement.styles?.borderRadius || '0'
-                      ).replace('%', '')
+                        state.editor.selectedElement.styles?.borderRadius || "0"
+                      ).replace("%", "")
                     ) || 0,
               ]}
               max={100}
@@ -463,7 +451,7 @@ const SettingsTab = (props: Props) => {
               onValueChange={(e) =>
                 handleOnChanges({
                   target: {
-                    id: 'backgroundSize',
+                    id: "backgroundSize",
                     value: e,
                   },
                 })
@@ -494,10 +482,7 @@ const SettingsTab = (props: Props) => {
           </div>
         </AccordionContent>
       </AccordionItem>
-      <AccordionItem
-        value="Flexbox"
-        className="px-6 py-0  "
-      >
+      <AccordionItem value="Flexbox" className="px-6 py-0  ">
         <AccordionTrigger className="!no-underline">Flexbox</AccordionTrigger>
         <AccordionContent>
           <Label className="text-muted-foreground">Justify Content</Label>
@@ -505,7 +490,7 @@ const SettingsTab = (props: Props) => {
             onValueChange={(e) =>
               handleOnChanges({
                 target: {
-                  id: 'justifyContent',
+                  id: "justifyContent",
                   value: e,
                 },
               })
@@ -550,7 +535,7 @@ const SettingsTab = (props: Props) => {
             onValueChange={(e) =>
               handleOnChanges({
                 target: {
-                  id: 'alignItems',
+                  id: "alignItems",
                   value: e,
                 },
               })
@@ -581,8 +566,8 @@ const SettingsTab = (props: Props) => {
               onChange={(va) => {
                 handleOnChanges({
                   target: {
-                    id: 'display',
-                    value: va.target.checked ? 'flex' : 'block',
+                    id: "display",
+                    value: va.target.checked ? "flex" : "block",
                   },
                 })
               }}

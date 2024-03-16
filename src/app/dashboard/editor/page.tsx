@@ -1,8 +1,8 @@
-import EditorProvider from '@/providers/editor/editor-provider'
-import React from 'react'
-import FunnelEditor from './_components/funnel-editor'
-import FunnelEditorNavigation from './_components/funnel-editor-navigation'
-import FunnelEditorSidebar from './_components/funnel-editor-sidebar'
+import EditorProvider from "@/providers/editor/editor-provider"
+import React from "react"
+import FunnelEditor from "./_components/funnel-editor"
+import FunnelEditorNavigation from "./_components/funnel-editor-navigation"
+import FunnelEditorSidebar from "./_components/funnel-editor-sidebar"
 
 const Page = () => {
   return (

@@ -1,19 +1,19 @@
-'use client'
-import Loading from '@/components/global/loading'
-import { Badge } from '@/components/ui/badge'
-import { toast } from '@/components/ui/use-toast'
-import { EditorBtns } from '@/lib/constants'
+"use client"
+import Loading from "@/components/global/loading"
+import { Badge } from "@/components/ui/badge"
+import { toast } from "@/components/ui/use-toast"
+import { EditorBtns } from "@/lib/constants"
 // import { getFunnel, getSubaccountDetails } from '@/lib/queries'
 // import { getStripe } from '@/lib/stripe/stripe-client'
-import { EditorElement, useEditor } from '@/providers/editor/editor-provider'
+import { EditorElement, useEditor } from "@/providers/editor/editor-provider"
 // import {
 //   EmbeddedCheckout,
 //   EmbeddedCheckoutProvider,
 // } from '@stripe/react-stripe-js'
-import clsx from 'clsx'
-import { Trash } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import React, { useEffect, useMemo, useState } from 'react'
+import clsx from "clsx"
+import { Trash } from "lucide-react"
+import { useRouter } from "next/navigation"
+import React, { useEffect, useMemo, useState } from "react"
 
 type Props = {
   element: EditorElement
@@ -22,9 +22,9 @@ type Props = {
 const Checkout = (props: Props) => {
   const { dispatch, state } = useEditor()
   const router = useRouter()
-  const [clientSecret, setClientSecret] = useState('')
+  const [clientSecret, setClientSecret] = useState("")
   const [livePrices, setLivePrices] = useState([])
-  const [subAccountConnectAccId, setSubAccountConnectAccId] = useState('')
+  const [subAccountConnectAccId, setSubAccountConnectAccId] = useState("")
   const options = useMemo(() => ({ clientSecret }), [clientSecret])
   const styles = props.element.styles
 
@@ -93,13 +93,13 @@ const Checkout = (props: Props) => {
 
   const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
     if (type === null) return
-    e.dataTransfer.setData('componentType', type)
+    e.dataTransfer.setData("componentType", type)
   }
 
   const handleOnClickBody = (e: React.MouseEvent) => {
     e.stopPropagation()
     dispatch({
-      type: 'CHANGE_CLICKED_ELEMENT',
+      type: "CHANGE_CLICKED_ELEMENT",
       payload: {
         elementDetails: props.element,
       },
@@ -124,7 +124,7 @@ const Checkout = (props: Props) => {
 
   const handleDeleteElement = () => {
     dispatch({
-      type: 'DELETE_ELEMENT',
+      type: "DELETE_ELEMENT",
       payload: { elementDetails: props.element },
     })
   }
@@ -133,16 +133,16 @@ const Checkout = (props: Props) => {
     <div
       style={styles}
       draggable
-      onDragStart={(e) => handleDragStart(e, 'contactForm')}
+      onDragStart={(e) => handleDragStart(e, "contactForm")}
       onClick={handleOnClickBody}
       className={clsx(
-        'p-[2px] w-full m-[5px] relative text-[16px] transition-all flex items-center justify-center',
+        "p-[2px] w-full m-[5px] relative text-[16px] transition-all flex items-center justify-center",
         {
-          '!border-blue-500':
+          "!border-blue-500":
             state.editor.selectedElement.id === props.element.id,
 
-          '!border-solid': state.editor.selectedElement.id === props.element.id,
-          'border-dashed border-[1px] border-slate-300': !state.editor.liveMode,
+          "!border-solid": state.editor.selectedElement.id === props.element.id,
+          "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
         }
       )}
     >

@@ -37,6 +37,6 @@ const config = {
       },
     ],
   },
-};
+}
 
-module.exports = config;
+module.exports = config

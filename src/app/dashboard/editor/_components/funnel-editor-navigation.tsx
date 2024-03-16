@@ -1,16 +1,16 @@
-'use client'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Switch } from '@/components/ui/switch'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+"use client"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Switch } from "@/components/ui/switch"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { DeviceTypes, useEditor } from '@/providers/editor/editor-provider'
-import clsx from 'clsx'
+} from "@/components/ui/tooltip"
+import { DeviceTypes, useEditor } from "@/providers/editor/editor-provider"
+import clsx from "clsx"
 import {
   ArrowLeftCircle,
   EyeIcon,
@@ -19,38 +19,38 @@ import {
   Smartphone,
   Tablet,
   Undo2,
-} from 'lucide-react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import React, { FocusEventHandler, useEffect } from 'react'
-import { toast } from 'sonner'
+} from "lucide-react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import React, { FocusEventHandler, useEffect } from "react"
+import { toast } from "sonner"
 
 const FunnelEditorNavigation = () => {
   const router = useRouter()
   const { state, dispatch } = useEditor()
 
   const handlePreviewClick = () => {
-    dispatch({ type: 'TOGGLE_PREVIEW_MODE' })
-    dispatch({ type: 'TOGGLE_LIVE_MODE' })
+    dispatch({ type: "TOGGLE_PREVIEW_MODE" })
+    dispatch({ type: "TOGGLE_LIVE_MODE" })
   }
 
   const handleUndo = () => {
-    dispatch({ type: 'UNDO' })
+    dispatch({ type: "UNDO" })
   }
 
   const handleRedo = () => {
-    dispatch({ type: 'REDO' })
+    dispatch({ type: "REDO" })
   }
 
   const handleOnSave = async () => {
     const content = JSON.stringify(state.editor.elements)
     try {
-      toast('Success', {
-        description: 'Saved Editor',
+      toast("Success", {
+        description: "Saved Editor",
       })
     } catch (error) {
-      toast('Oppse!', {
-        description: 'Could not save editor',
+      toast("Oppse!", {
+        description: "Could not save editor",
       })
     }
   }
@@ -59,8 +59,8 @@ const FunnelEditorNavigation = () => {
     <TooltipProvider>
       <nav
         className={clsx(
-          'border-b-[1px] flex items-center justify-between p-6 gap-2 transition-all',
-          { '!h-0 !p-0 !overflow-hidden': state.editor.previewMode }
+          "border-b-[1px] flex items-center justify-between p-6 gap-2 transition-all",
+          { "!h-0 !p-0 !overflow-hidden": state.editor.previewMode }
         )}
       >
         <aside className="flex items-center gap-4 max-w-[260px] w-[300px]">
@@ -86,7 +86,7 @@ const FunnelEditorNavigation = () => {
             value={state.editor.device}
             onValueChange={(value) => {
               dispatch({
-                type: 'CHANGE_DEVICE',
+                type: "CHANGE_DEVICE",
                 payload: { device: value as DeviceTypes },
               })
             }}
@@ -136,8 +136,8 @@ const FunnelEditorNavigation = () => {
         </aside>
         <aside className="flex items-center gap-2">
           <Button
-            variant={'ghost'}
-            size={'icon'}
+            variant={"ghost"}
+            size={"icon"}
             className="hover:bg-slate-800"
             onClick={handlePreviewClick}
           >
@@ -146,8 +146,8 @@ const FunnelEditorNavigation = () => {
           <Button
             disabled={!(state.history.currentIndex > 0)}
             onClick={handleUndo}
-            variant={'ghost'}
-            size={'icon'}
+            variant={"ghost"}
+            size={"icon"}
             className="hover:bg-slate-800"
           >
             <Undo2 />
@@ -157,8 +157,8 @@ const FunnelEditorNavigation = () => {
               !(state.history.currentIndex < state.history.history.length - 1)
             }
             onClick={handleRedo}
-            variant={'ghost'}
-            size={'icon'}
+            variant={"ghost"}
+            size={"icon"}
             className="hover:bg-slate-800 mr-4"
           >
             <Redo2 />
@@ -166,15 +166,12 @@ const FunnelEditorNavigation = () => {
           <div className="flex flex-col item-center mr-4">
             <div className="flex flex-row items-center gap-4">
               Draft
-              <Switch
-                disabled
-                defaultChecked={true}
-              />
+              <Switch disabled defaultChecked={true} />
               Publish
             </div>
             <span className="text-muted-foreground text-sm">
               {/* Last updated {funnelPageDetails.updatedAt.toLocaleDateString()} */}
-              Last updated 
+              Last updated
             </span>
           </div>
           <Button onClick={handleOnSave}>Save</Button>

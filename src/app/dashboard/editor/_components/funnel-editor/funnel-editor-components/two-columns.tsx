@@ -1,12 +1,12 @@
-'use client'
-import { EditorElement, useEditor } from '@/providers/editor/editor-provider'
-import React from 'react'
-import RecursiveElement from './recursive'
+"use client"
+import { EditorElement, useEditor } from "@/providers/editor/editor-provider"
+import React from "react"
+import RecursiveElement from "./recursive"
 
-import { v4 } from 'uuid'
-import clsx from 'clsx'
-import { Badge } from '@/components/ui/badge'
-import { EditorBtns, defaultStyles } from '@/lib/constants'
+import { v4 } from "uuid"
+import clsx from "clsx"
+import { Badge } from "@/components/ui/badge"
+import { EditorBtns, defaultStyles } from "@/lib/constants"
 
 type Props = {
   element: EditorElement
@@ -18,52 +18,52 @@ const TwoColumns = (props: Props) => {
 
   const handleOnDrop = (e: React.DragEvent, type: string) => {
     e.stopPropagation()
-    const componentType = e.dataTransfer.getData('componentType') as EditorBtns
+    const componentType = e.dataTransfer.getData("componentType") as EditorBtns
     switch (componentType) {
-      case 'text':
+      case "text":
         dispatch({
-          type: 'ADD_ELEMENT',
+          type: "ADD_ELEMENT",
           payload: {
             containerId: id,
             elementDetails: {
-              content: { innerText: 'Text Component' },
+              content: { innerText: "Text Component" },
               id: v4(),
-              name: 'Text',
+              name: "Text",
               styles: {
-                color: 'black',
+                color: "black",
                 ...defaultStyles,
               },
-              type: 'text',
+              type: "text",
             },
           },
         })
         break
-      case 'container':
+      case "container":
         dispatch({
-          type: 'ADD_ELEMENT',
+          type: "ADD_ELEMENT",
           payload: {
             containerId: id,
             elementDetails: {
               content: [],
               id: v4(),
-              name: 'Container',
+              name: "Container",
               styles: { ...defaultStyles },
-              type: 'container',
+              type: "container",
             },
           },
         })
         break
-      case '2Col':
+      case "2Col":
         dispatch({
-          type: 'ADD_ELEMENT',
+          type: "ADD_ELEMENT",
           payload: {
             containerId: id,
             elementDetails: {
               content: [],
               id: v4(),
-              name: 'Two Columns',
+              name: "Two Columns",
               styles: { ...defaultStyles },
-              type: '2Col',
+              type: "2Col",
             },
           },
         })
@@ -75,14 +75,14 @@ const TwoColumns = (props: Props) => {
     e.preventDefault()
   }
   const handleDragStart = (e: React.DragEvent, type: string) => {
-    if (type === '__body') return
-    e.dataTransfer.setData('componentType', type)
+    if (type === "__body") return
+    e.dataTransfer.setData("componentType", type)
   }
 
   const handleOnClickBody = (e: React.MouseEvent) => {
     e.stopPropagation()
     dispatch({
-      type: 'CHANGE_CLICKED_ELEMENT',
+      type: "CHANGE_CLICKED_ELEMENT",
       payload: {
         elementDetails: props.element,
       },
@@ -92,24 +92,24 @@ const TwoColumns = (props: Props) => {
   return (
     <div
       style={props.element.styles}
-      className={clsx('relative p-4 transition-all', {
-        'h-fit': type === 'container',
-        'h-full': type === '__body',
-        'm-4': type === 'container',
-        '!border-blue-500':
+      className={clsx("relative p-4 transition-all", {
+        "h-fit": type === "container",
+        "h-full": type === "__body",
+        "m-4": type === "container",
+        "!border-blue-500":
           state.editor.selectedElement.id === props.element.id &&
           !state.editor.liveMode,
-        '!border-solid':
+        "!border-solid":
           state.editor.selectedElement.id === props.element.id &&
           !state.editor.liveMode,
-        'border-dashed border-[1px] border-slate-300': !state.editor.liveMode,
+        "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
       })}
       id="innerContainer"
       onDrop={(e) => handleOnDrop(e, id)}
       onDragOver={handleDragOver}
-      draggable={type !== '__body'}
+      draggable={type !== "__body"}
       onClick={handleOnClickBody}
-      onDragStart={(e) => handleDragStart(e, 'container')}
+      onDragStart={(e) => handleDragStart(e, "container")}
     >
       {state.editor.selectedElement.id === props.element.id &&
         !state.editor.liveMode && (
@@ -119,10 +119,7 @@ const TwoColumns = (props: Props) => {
         )}
       {Array.isArray(content) &&
         content.map((childElement) => (
-          <RecursiveElement
-            key={childElement.id}
-            element={childElement}
-          />
+          <RecursiveElement key={childElement.id} element={childElement} />
         ))}
     </div>
   )
