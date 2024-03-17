@@ -7,18 +7,40 @@ import React from "react"
 import { v4 } from "uuid"
 import Recursive from "./recursive"
 import { Trash } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn, findEditorElementById } from "@/lib/utils"
 import PolymorphicComponent from "@/components/global/polymorphic-component"
+import {
+  basicAccordionElementData,
+  borderedAccordionElementData,
+  borderOnlyWhenActiveAccordionElementData,
+  nestedAccordionElementData,
+  openAccordionElementData,
+} from "@/lib/elements/accordion-element-data"
 
 type Props = { element: EditorElement }
 
 const Container = ({ element }: Props) => {
-  const { id, content, name, styles, type } = element
+  const { id, content, name, styles, type, componentProps } = element
   const { dispatch, state } = useEditor()
 
-  const handleOnDrop = (e: React.DragEvent, type: string) => {
+  const handleOnDrop = (e: React.DragEvent, id: string) => {
     e.stopPropagation()
+
     const componentType = e.dataTransfer.getData("componentType") as EditorBtns
+    const componentId = e.dataTransfer.getData("componentId") as EditorBtns
+
+    if (componentId && id) {
+      const elem = findEditorElementById(state.editor.elements, componentId)
+      if (!elem) return
+      dispatch({
+        type: "ADD_ELEMENT",
+        payload: {
+          containerId: id,
+          elementDetails: { ...elem },
+        },
+      })
+      return
+    }
 
     switch (componentType) {
       case "text":
@@ -293,6 +315,52 @@ const Container = ({ element }: Props) => {
           },
         })
         break
+
+      case "basicAccordion":
+        dispatch({
+          type: "ADD_ELEMENT",
+          payload: {
+            containerId: id,
+            elementDetails: basicAccordionElementData,
+          },
+        })
+        break
+      case "openAccordion":
+        dispatch({
+          type: "ADD_ELEMENT",
+          payload: {
+            containerId: id,
+            elementDetails: openAccordionElementData,
+          },
+        })
+        break
+      case "nestedAccordion":
+        dispatch({
+          type: "ADD_ELEMENT",
+          payload: {
+            containerId: id,
+            elementDetails: nestedAccordionElementData,
+          },
+        })
+        break
+      case "borderedAccordion":
+        dispatch({
+          type: "ADD_ELEMENT",
+          payload: {
+            containerId: id,
+            elementDetails: borderedAccordionElementData,
+          },
+        })
+        break
+      case "borderOnlyWhenActiveAccordion":
+        dispatch({
+          type: "ADD_ELEMENT",
+          payload: {
+            containerId: id,
+            elementDetails: borderOnlyWhenActiveAccordionElementData,
+          },
+        })
+        break
     }
   }
 
@@ -300,14 +368,15 @@ const Container = ({ element }: Props) => {
     e.preventDefault()
   }
 
-  const handleDragStart = (e: React.DragEvent, type: string) => {
+  const handleDragStart = (e: React.DragEvent, type: string, id: string) => {
+    e.stopPropagation()
     if (type === "__body") return
     e.dataTransfer.setData("componentType", type)
+    e.dataTransfer.setData("componentId", id)
   }
 
   const handleOnClickBody = (e: React.MouseEvent) => {
     e.stopPropagation()
-    // console.log(element)
     dispatch({
       type: "CHANGE_CLICKED_ELEMENT",
       payload: {
@@ -331,8 +400,9 @@ const Container = ({ element }: Props) => {
     <PolymorphicComponent
       as={elementType}
       style={styles}
+      id={element.id || ""}
       className={cn(
-        "relative p-4 transition-all group",
+        "relative transition-all p-2",
         {
           "max-w-full w-full": type === "container" || type === "2Col",
           "h-fit": type === "container",
@@ -357,7 +427,10 @@ const Container = ({ element }: Props) => {
       onDragOver={handleDragOver}
       draggable={type !== "__body"}
       onClick={handleOnClickBody}
-      onDragStart={(e: any) => handleDragStart(e, "container")}
+      onDragStart={(e: any) =>
+        handleDragStart(e, element.type || "container", id)
+      }
+      {...componentProps}
     >
       <Badge
         className={clsx(
@@ -380,7 +453,7 @@ const Container = ({ element }: Props) => {
       {state.editor.selectedElement.id === element.id &&
         !state.editor.liveMode &&
         state.editor.selectedElement.type !== "__body" && (
-          <div className="absolute bg-primary px-2.5 py-1 text-xs font-bold  -top-[25px] -right-[1px] rounded-none rounded-t-lg ">
+          <div className="absolute z-10 bg-primary px-2.5 py-1 text-xs font-bold  -top-[25px] -right-[1px] rounded-none rounded-t-lg text-primary-foreground">
             <Trash size={16} onClick={handleDeleteElement} />
           </div>
         )}

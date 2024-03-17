@@ -7,14 +7,12 @@ import FunnelEditorSidebar from "./_components/funnel-editor-sidebar"
 const Page = () => {
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 z-[20] bg-background overflow-hidden">
-      <EditorProvider>
-        <FunnelEditorNavigation />
-        <div className="h-full flex justify-center">
-          <FunnelEditor />
-        </div>
+      <FunnelEditorNavigation />
+      <div className="h-full flex justify-center">
+        <FunnelEditor />
+      </div>
 
-        <FunnelEditorSidebar />
-      </EditorProvider>
+      <FunnelEditorSidebar />
     </div>
   )
 }

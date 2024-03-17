@@ -14,9 +14,10 @@ import LinkPlaceholder from "./link-placeholder"
 import ContactFormComponentPlaceholder from "./contact-form-placeholder"
 import CheckoutPlaceholder from "./checkout-placeholder"
 import HeaderPlaceholder from "./typography/header-placeholder"
+import AccordionPlaceholder from "./accordion-placeholder"
 
 type Props = {}
-type TypograghyElements = "layout" | "elements" | "typography"
+type TypograghyElements = "layout" | "elements" | "typography" | "accordion"
 
 const ComponentsTab = (props: Props) => {
   const elements: {
@@ -115,13 +116,69 @@ const ComponentsTab = (props: Props) => {
       id: "blockquote",
       group: "typography",
     },
+    // {
+    //   Component: <AccordionPlaceholder accordionElement="accordionWrapper" />,
+    //   label: "Wrapper",
+    //   id: "accordionWrapper",
+    //   group: "accordion",
+    // },
+    // {
+    //   Component: <AccordionPlaceholder accordionElement="accordionItem" />,
+    //   label: "Accordion Item",
+    //   id: "accordionItem",
+    //   group: "accordion",
+    // },
+    // {
+    //   Component: <AccordionPlaceholder accordionElement="accordionTrigger" />,
+    //   label: "Trigger",
+    //   id: "accordionTrigger",
+    //   group: "accordion",
+    // },
+    // {
+    //   Component: <AccordionPlaceholder accordionElement="accordionContent" />,
+    //   label: "Content",
+    //   id: "accordionContent",
+    //   group: "accordion",
+    // },
+    {
+      Component: <AccordionPlaceholder accordionElement="basicAccordion" />,
+      label: "Basic",
+      id: "basicAccordion",
+      group: "accordion",
+    },
+    {
+      Component: <AccordionPlaceholder accordionElement="openAccordion" />,
+      label: "default Open",
+      id: "openAccordion",
+      group: "accordion",
+    },
+    {
+      Component: <AccordionPlaceholder accordionElement="nestedAccordion" />,
+      label: "Nested",
+      id: "nestedAccordion",
+      group: "accordion",
+    },
+    {
+      Component: <AccordionPlaceholder accordionElement="borderedAccordion" />,
+      label: "Bordered",
+      id: "borderedAccordion",
+      group: "accordion",
+    },
+    {
+      Component: (
+        <AccordionPlaceholder accordionElement="borderOnlyWhenActiveAccordion" />
+      ),
+      label: "Bordered Active",
+      id: "borderOnlyWhenActiveAccordion",
+      group: "accordion",
+    },
   ]
 
   return (
     <Accordion
       type="multiple"
       className="w-full"
-      defaultValue={["Layout", "Elements", "Typography"]}
+      defaultValue={["Layout", "Elements", "Typography", "Accordion"]}
     >
       <AccordionItem value="Layout" className="px-6 py-0 border-y-[1px]">
         <AccordionTrigger className="!no-underline">Layout</AccordionTrigger>
@@ -146,6 +203,22 @@ const ComponentsTab = (props: Props) => {
         <AccordionContent className="flex flex-wrap gap-2 ">
           {elements
             .filter((element) => element.group === "typography")
+            .map((element) => (
+              <div
+                key={element.id}
+                className="flex-col items-center justify-center flex"
+              >
+                {element.Component}
+                <span className="text-muted-foreground">{element.label}</span>
+              </div>
+            ))}
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="Accordion" className="px-6 py-0 ">
+        <AccordionTrigger className="!no-underline">Accordion</AccordionTrigger>
+        <AccordionContent className="flex flex-wrap gap-2 ">
+          {elements
+            .filter((element) => element.group === "accordion")
             .map((element) => (
               <div
                 key={element.id}

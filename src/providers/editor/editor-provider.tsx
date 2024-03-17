@@ -1,7 +1,15 @@
 "use client"
 import { EditorBtns } from "@/lib/constants"
 import { EditorAction } from "./editor-actions"
-import { Dispatch, createContext, useContext, useReducer } from "react"
+import {
+  Dispatch,
+  createContext,
+  useContext,
+  useReducer,
+  useEffect,
+  useState,
+} from "react"
+import { useLocalStorage } from "@mantine/hooks"
 
 export type DeviceTypes = "Desktop" | "Mobile" | "Tablet"
 
@@ -13,6 +21,7 @@ export type EditorElement = {
   content: EditorElement[] | { href?: string; innerText?: string; src?: string }
   className?: string
   htmlContainerElement?: React.ElementType
+  componentProps?: { [x: string]: any }
 }
 
 export type Editor = {
@@ -363,6 +372,34 @@ type EditorProps = {
 
 const EditorProvider = (props: EditorProps) => {
   const [state, dispatch] = useReducer(editorReducer, initialState)
+  const [firstLoad, setFirstLoad] = useState(0)
+
+  const [value, setValue] = useLocalStorage<any>({
+    key: "editor-miss",
+  })
+  const valueToCompare = process.env.NODE_ENV === "production" ? 1 : 2
+
+  useEffect(() => {
+    if (firstLoad === valueToCompare) {
+      setValue(state)
+    }
+  }, [state])
+
+  useEffect(() => {
+    if (firstLoad === valueToCompare && value) {
+      dispatch({
+        type: "LOAD_DATA",
+        payload: {
+          elements: value.editor.elements,
+          withLive: false,
+        },
+      })
+    }
+  }, [firstLoad])
+
+  useEffect(() => {
+    setFirstLoad((prevState) => prevState + 1)
+  }, [])
 
   return (
     <EditorContext.Provider

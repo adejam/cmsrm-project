@@ -21,7 +21,8 @@ export default async function Layout({
 
   return (
     <div>
-      {children} <PrelineScript />
+      {children}
+      <PrelineScript />
     </div>
   )
 }

@@ -68,3 +68,7 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.use-automation-zoom-in {
+  animation: automation-zoom-in 0.5s;
+}

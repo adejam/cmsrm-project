@@ -222,6 +222,20 @@ export type HeaderHeirachyType =
   | "blockquote"
   | "span"
 
+export type AccordionElements =
+  | "accordionWrapper"
+  | "accordionItem"
+  | "accordionTrigger"
+  | "accordionContent"
+  | "basicAccordion"
+  | "openAccordion"
+  | "nestedAccordion"
+  | "withoutArrowAccordion"
+  | "withArrowAccordion"
+  | "withArrowStrechedAccordion"
+  | "borderedAccordion"
+  | "borderOnlyWhenActiveAccordion"
+
 export type EditorBtns =
   | "text"
   | "container"
@@ -236,6 +250,7 @@ export type EditorBtns =
   | null
   | "3Col"
   | HeaderHeirachyType
+  | AccordionElements
 
 export const defaultStyles: React.CSSProperties = {
   backgroundPosition: "center",
@@ -246,3 +261,4 @@ export const defaultStyles: React.CSSProperties = {
 }
 
 export const ALLOWED_CONTENT = "ac"
+export const RERENDER_PRELINE = "rp"

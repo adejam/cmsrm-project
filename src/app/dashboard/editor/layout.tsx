@@ -1,4 +1,6 @@
-// import PrelineScript from "@/components/global/preline-script"
+import PrelineStatefulScript from "@/components/global/preline-stateful-script"
+
+import EditorProvider from "@/providers/editor/editor-provider"
 
 export const dynamic = "force-dynamic"
 
@@ -9,8 +11,10 @@ export default async function Layout({
 }) {
   return (
     <div>
-      {children}
-      {/* <PrelineScript /> */}
+      <EditorProvider>
+        {children}
+        <PrelineStatefulScript />
+      </EditorProvider>
     </div>
   )
 }

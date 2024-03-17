@@ -16,11 +16,8 @@ type Props = { headerHeirachy: HeaderHeirachyType }
 const HeaderPlaceholder = ({ headerHeirachy }: Props) => {
   const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
     if (type === null) return
-    // console.log(type)
     e.dataTransfer.setData("componentType", type)
   }
-
-  // console.log(headerHeirachy)
 
   let Icon = Heading1Icon
 
