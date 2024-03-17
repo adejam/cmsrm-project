@@ -1,3 +1,4 @@
+import PrelineScript from "@/components/global/preline-script"
 import { createAnonServerClient } from "@/lib/supabase/supabase-anon-server-client"
 import { redirect } from "next/navigation"
 
@@ -18,5 +19,9 @@ export default async function Layout({
     redirect("/login")
   }
 
-  return <div>{children}</div>
+  return (
+    <div>
+      {children} <PrelineScript />
+    </div>
+  )
 }

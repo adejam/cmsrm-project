@@ -7,6 +7,8 @@ import React from "react"
 import { v4 } from "uuid"
 import Recursive from "./recursive"
 import { Trash } from "lucide-react"
+import { cn } from "@/lib/utils"
+import PolymorphicComponent from "@/components/global/polymorphic-component"
 
 type Props = { element: EditorElement }
 
@@ -323,32 +325,39 @@ const Container = ({ element }: Props) => {
     })
   }
 
+  const elementType = element.htmlContainerElement
+
   return (
-    <div
+    <PolymorphicComponent
+      as={elementType}
       style={styles}
-      className={clsx("relative p-4 transition-all group", {
-        "max-w-full w-full": type === "container" || type === "2Col",
-        "h-fit": type === "container",
-        "h-full": type === "__body",
-        "overflow-scroll ": type === "__body",
-        "flex flex-col md:!flex-row": type === "2Col",
-        "!border-blue-500":
-          state.editor.selectedElement.id === id &&
-          !state.editor.liveMode &&
-          state.editor.selectedElement.type !== "__body",
-        "!border-yellow-400 !border-4":
-          state.editor.selectedElement.id === id &&
-          !state.editor.liveMode &&
-          state.editor.selectedElement.type === "__body",
-        "!border-solid":
-          state.editor.selectedElement.id === id && !state.editor.liveMode,
-        "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
-      })}
-      onDrop={(e) => handleOnDrop(e, id)}
+      className={cn(
+        "relative p-4 transition-all group",
+        {
+          "max-w-full w-full": type === "container" || type === "2Col",
+          "h-fit": type === "container",
+          "h-full": type === "__body",
+          "overflow-scroll ": type === "__body",
+          "flex flex-col md:!flex-row": type === "2Col",
+          "!border-blue-500":
+            state.editor.selectedElement.id === id &&
+            !state.editor.liveMode &&
+            state.editor.selectedElement.type !== "__body",
+          "!border-yellow-400 !border-4":
+            state.editor.selectedElement.id === id &&
+            !state.editor.liveMode &&
+            state.editor.selectedElement.type === "__body",
+          "!border-solid":
+            state.editor.selectedElement.id === id && !state.editor.liveMode,
+          "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
+        },
+        element.className || ""
+      )}
+      onDrop={(e: any) => handleOnDrop(e, id)}
       onDragOver={handleDragOver}
       draggable={type !== "__body"}
       onClick={handleOnClickBody}
-      onDragStart={(e) => handleDragStart(e, "container")}
+      onDragStart={(e: any) => handleDragStart(e, "container")}
     >
       <Badge
         className={clsx(
@@ -375,7 +384,7 @@ const Container = ({ element }: Props) => {
             <Trash size={16} onClick={handleDeleteElement} />
           </div>
         )}
-    </div>
+    </PolymorphicComponent>
   )
 }
 

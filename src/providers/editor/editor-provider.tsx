@@ -12,6 +12,7 @@ export type EditorElement = {
   type: EditorBtns
   content: EditorElement[] | { href?: string; innerText?: string; src?: string }
   className?: string
+  htmlContainerElement?: React.ElementType
 }
 
 export type Editor = {

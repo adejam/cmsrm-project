@@ -39,7 +39,6 @@ const FunnelEditor = ({ liveMode }: Props) => {
   // }, [funnelPageId])
 
   const handleClick = () => {
-    console.log("here")
     dispatch({
       type: "CHANGE_CLICKED_ELEMENT",
       payload: {},

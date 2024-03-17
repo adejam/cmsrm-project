@@ -65,16 +65,20 @@ const TypographyComponent = (props: Props) => {
   return (
     <PolymorphicComponent
       onClick={handleOnClickBody}
-      style={styles}
+      style={{ ...styles, position: "relative" }}
       id={props.element.id || ""}
       as={props.element.type}
-      className={cn(defaultClasses, props.element.className || "relative", {
-        "!border-blue-500":
-          state.editor.selectedElement.id === props.element.id,
+      className={cn(
+        defaultClasses,
+        {
+          "!border-blue-500":
+            state.editor.selectedElement.id === props.element.id,
 
-        "!border-solid": state.editor.selectedElement.id === props.element.id,
-        "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
-      })}
+          "!border-solid": state.editor.selectedElement.id === props.element.id,
+          "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
+        },
+        props.element.className || ""
+      )}
       contentEditable={!state.editor.liveMode}
       onBlur={(e: any) => {
         const spanElement = e.target as HTMLSpanElement

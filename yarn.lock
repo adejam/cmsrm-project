@@ -691,7 +691,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@popperjs/core@npm:^2.9.3":
+"@popperjs/core@npm:^2.11.2, @popperjs/core@npm:^2.9.3":
   version: 2.11.8
   resolution: "@popperjs/core@npm:2.11.8"
   checksum: ddd16090cde777aaf102940f05d0274602079a95ad9805bd20bc55dcc7c3a2ba1b99dd5c73e5cc2753c3d31250ca52a67d58059459d7d27debb983a9f552936c
@@ -4517,6 +4517,7 @@ __metadata:
     pg: "npm:^8.11.3"
     postcss: "npm:^8.4.35"
     postgres: "npm:^3.4.3"
+    preline: "npm:^2.0.3"
     prettier: "npm:^3.2.5"
     prettier-plugin-tailwindcss: "npm:^0.5.11"
     react: "npm:18.2.0"
@@ -6107,6 +6108,15 @@ __metadata:
   version: 3.4.3
   resolution: "postgres@npm:3.4.3"
   checksum: 13603374a0f3fcc228f69fb7db64f9faaf42ad9eb6df8a76632162b0bbbe78e30a22b4b7c8b4dcc80275502b42c9b053bf9defbe5898358c84909ff8ad620225
+  languageName: node
+  linkType: hard
+
+"preline@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "preline@npm:2.0.3"
+  dependencies:
+    "@popperjs/core": "npm:^2.11.2"
+  checksum: 0a712a37b43cbb0636e787885eadae6f576f45e8cf9eee01d4ac6533116e96ada0a0a6074785df238f7981789c2f9e2099d683a16d5876d40df418c4b3f7243e
   languageName: node
   linkType: hard
 

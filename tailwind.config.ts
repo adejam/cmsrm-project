@@ -4,7 +4,8 @@ const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
-    "node_modules/flowbite-react/lib/esm/**/*.js",
+    "node_modules/flowbite-react/lib/**/*.js",
+    "./node_modules/preline/preline.js",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
